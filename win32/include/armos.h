@@ -1,0 +1,1 @@
+#define BREAK asm volatile ("break #0")

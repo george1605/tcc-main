@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "holyc.h": "c",
+        "iobuf.hpp": "c",
+        "xlocale": "c",
+        "signal.h": "c"
+    }
+}
