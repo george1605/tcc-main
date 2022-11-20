@@ -17,6 +17,16 @@ struct filehdr {
         unsigned short  f_TargetID;     /* for C6x = 0x0099 */
         };
 
+void* init_filehdr(void* addr)
+{
+        if(addr == 0)
+                return 0;
+        struct filehdr* hdr = (struct filehdr*)addr;
+        hdr->f_magic = (0x4C << 8) | 0x01;
+        hdr->f_flags = 2;
+        return (void*)hdr;
+}
+
 /*------------------------------------------------------------------------*/
 /*  File header flags                                                     */
 /*------------------------------------------------------------------------*/

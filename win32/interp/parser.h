@@ -27,6 +27,14 @@ char* keywords[] = {
     "call"
 };
 
+void parse_print(const char* str)
+{
+    if(strncmp(str, "print", 5))
+        return;
+    char* p = strtok(str, " ");
+    puts(p);
+}
+
 void add_keyword(const char* kwd, void(*parser)(const char*))
 {
     realloc(keywords, sizeof keywords + sizeof kwd);
