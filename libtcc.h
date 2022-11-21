@@ -93,6 +93,8 @@ LIBTCCAPI int tcc_relocate(TCCState *s1, void *ptr);
 /* return symbol value or NULL if not found */
 LIBTCCAPI void *tcc_get_symbol(TCCState *s, const char *name);
 
+LIBTCCAPI void tcc_extended(TCCState* s1);
+
 #ifdef __cplusplus
 }
 #endif

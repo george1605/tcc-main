@@ -1985,6 +1985,13 @@ PUB_FUNC void tcc_print_stats(TCCState *s, unsigned total_time)
 #endif
 }
 
+LIBTCCAPI void tcc_extended(TCCState* s1)
+{
+    tcc_add_include_path(s1, "holyc.h");
+    s1->dollars_in_identifiers = 1;
+    s1->ms_extensions = 1; 
+}
+
 ST_DATA void tcc_errorFunc(void* opaque, const char* msg)
 {
     puts("ERROR: ");
