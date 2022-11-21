@@ -1,5 +1,6 @@
 Tiny C Compiler - C Scripting Everywhere - The Smallest ANSI C compiler
------------------------------------------------------------------------ George's Version
+
+Savvy Version (SV 1.0)
 - Added ```stdsock.h```
 - Created cport - a C port for C++ classes & functions
 - ```holyc.h``` & TCC API function ```tcc_extended```
