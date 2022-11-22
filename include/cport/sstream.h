@@ -3,19 +3,11 @@
 #include <malloc.h>
 #include <stdio.h>
 #include <string.h>
+#include "ios.h"
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-enum ios
-{
-    app = 1,
-    ate = 2,
-    binary = 4,
-    in = 8,
-    out = 16,
-    truncate = 32
-};
 
 struct stringstream
 {
