@@ -3,6 +3,7 @@
 #include <malloc.h>
 #include "throw.h"
 #define new(type) __runt_alloc(sizeof(type))
+#define news(type, sz) __runt_alloc(sizeof(type) * sz)
 #define delete(ptr) __runt_free(ptr)
 
 static char* badalloc_exc()
