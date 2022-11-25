@@ -1,15 +1,21 @@
-#include <cport/new.h>
 #include <stdio.h>
+#ifdef _WIN32
+#include <winmap.h>
+char txt[] = "Global\\Process";
 
-int when_bad(int s)
+void test()
 {
-    puts("Caught bd alloc!");
+    puts("Wow");
 }
 
 int main()
 {
-    _catch(BADALLOC_ERR, when_bad);
-    void* p = news(char, 100000000);
-    printf("%p", p);
-    delete(p);
+    HANDLE c;
+    LPVOID lpv;
+    if(c = MapMemory(100, txt))
+        lpv = ShareMemory(100, c);
+    CpyFunction(lpv, test);
+    UnmapViewOfFile(lpv);
+    CloseHandle(c);
 }
+#endif

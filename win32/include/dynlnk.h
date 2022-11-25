@@ -8,15 +8,18 @@
 #define TEXT_SECTION ".text"
 #define DATA_SECTION ".data"
 #define RODATA_SECTION ".rodata"
+#define BSS_SECTION ".bss"
 #ifdef _WIN32
 #define DLL_MAIN "DllMain"
+#define WIN_MAIN "WinMain"
+#define WWIN_MAIN "wWinMain"
 #endif
 typedef (*main_func)(int argc, char** argv);
 
 uint8_t* relocate(const char* file, size_t size)
 {
     FILE* fp = fopen(file, "rb");
-    uint8_t* buffer = (uint8_t*)malloc(size);
+    uint8_t* buffer = (uint8_t*)malloc(size + 1);
     fread(buffer, 1, size, fp);
     fclose(fp);
     return buffer;
@@ -39,11 +42,4 @@ int execbytes(uint8_t* p)
 char* find_symbol(uint8_t* buf, char* symbol)
 {
     return strstr((const char*)buf, symbol);
-}
-
-int main()
-{
-    uint8_t* ptr = relocate("libtcc1-32.a", 100);
-    printf("%s", find_symbol(ptr, "<arch>"));
-    return 0;
 }
