@@ -29,9 +29,10 @@ char* keywords[] = {
 
 void parse_print(const char* str)
 {
-    if(strncmp(str, "print", 5))
-        return;
+    // if(strncmp(str, "print", 5) != 0)
+    //    return;
     char* p = strtok(str, " ");
+    p = strtok(NULL, " ");
     puts(p);
 }
 
