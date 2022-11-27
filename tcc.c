@@ -78,7 +78,7 @@ static const char help[] =
     ;
 
 static const char help2[] =
-    "Tiny C Compiler "TCC_VERSION" - More Options\n"
+    "TCC "TCC_VERSION" - More Options\n"
     "Special options:\n"
     "  -P -P1                        with -E: no/alternative #line output\n"
     "  -dD -dM                       with -E: output #define directives\n"
@@ -326,7 +326,9 @@ redo:
     if ((s->output_type == TCC_OUTPUT_MEMORY
       || s->output_type == TCC_OUTPUT_PREPROCESS) && (s->dflag & 16))
         s->dflag |= t ? 32 : 0, s->run_test = ++t, n = s->nb_files;
-
+    
+    if(!strncmp(".hc", tcc_fileextension(s->files[0]->name), 3))
+        s->files[0]->type = AFF_TYPE_C, tcc_extended(s);
     /* compile or add each files or library */
     for (first_file = NULL, ret = 0;;) {
         struct filespec *f = s->files[s->nb_files - n];

@@ -189,7 +189,7 @@ PUB_FUNC char *tcc_fileextension (const char *name)
 
 /********************************************************/
 /* memory management */
-
+    
 #undef free
 #undef malloc
 #undef realloc
@@ -1987,7 +1987,7 @@ PUB_FUNC void tcc_print_stats(TCCState *s, unsigned total_time)
 
 LIBTCCAPI void tcc_extended(TCCState* s1)
 {
-    tcc_add_include_path(s1, "holyc.h");
+    tcc_add_sysinclude_path(s1, "holyc.h");
     s1->dollars_in_identifiers = 1;
     s1->ms_extensions = 1; 
 }
