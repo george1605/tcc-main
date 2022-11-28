@@ -1,8 +1,12 @@
 #include <stdio.h>
 #include <holyc.h>
 
+U0 test()
+{
+    puts("nope");
+}
+
 I32 main()
 {
-    int $hey = 0;
-    printf("%i", $hey);
+    Asm(call test);
 }

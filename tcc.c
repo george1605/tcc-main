@@ -328,7 +328,10 @@ redo:
         s->dflag |= t ? 32 : 0, s->run_test = ++t, n = s->nb_files;
     
     if(!strncmp(".hc", tcc_fileextension(s->files[0]->name), 3))
+    {
+        s->filetype = AFF_TYPE_C;
         s->files[0]->type = AFF_TYPE_C, tcc_extended(s);
+    }
     /* compile or add each files or library */
     for (first_file = NULL, ret = 0;;) {
         struct filespec *f = s->files[s->nb_files - n];
