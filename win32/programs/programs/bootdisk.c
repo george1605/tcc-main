@@ -23,6 +23,10 @@ int main(int argc, char** argv)
     memory[ft] = 0;
     OFSTRUCT buffer;
     HFILE hfile = OpenFile(strcat(dsk, argv[2]), &buffer, OF_READ);
-    WriteFile(hfile, &memory, ft, &bytes_wr, NULL);
+    if(!WriteFile(hfile, &memory, ft, &bytes_wr, NULL))
+        printf("Cannot create bootable image. Error=%i", GetLastError());
+    else
+        puts("Sucessfully created bootable disk!");
+    CloseHandle(hfile);
     return 0;
 }
