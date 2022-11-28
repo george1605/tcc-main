@@ -1,12 +1,9 @@
 #include <stdio.h>
 #include <holyc.h>
-
-U0 test()
-{
-    puts("nope");
-}
+U8 buffer[32] = {0};
 
 I32 main()
 {
-    Asm(call test);
+    GetS(buffer);
+    puts(buffer);
 }

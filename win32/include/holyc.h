@@ -63,6 +63,33 @@ U0 MemSet (U0* ptr, U8 val, U32 size)
     memset(ptr, val, size);
 }
 
+#define NEWLINE '\n'
+char *GetS(char *s) 
+    { 
+    	char *ptr = s; 
+    	int rd; 
+     
+    	/* skip initial spaces and blanks */ 
+    	while (((rd = getchar()) == ' ') || (rd == '\t')) 
+    		; 
+     
+    	if ((rd == NEWLINE) || (rd == EOF)) { 
+    		*ptr = '\0'; 
+    		return s; 
+    	} 
+    	else {  
+    		*ptr = rd; 
+    	} 
+     
+    	/* now read the rest until NEWLINE/EOF */ 
+    	while (((rd = getchar()) != NEWLINE) && (rd != EOF)) { 
+    		*ptr++ = rd; 
+    	} 
+     
+    	*ptr = '\0'; 
+    	return s; 
+    } 
+
 // #endif // TEMPLE OS
 
 #endif
