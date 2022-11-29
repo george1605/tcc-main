@@ -64,3 +64,9 @@ void lasterr(struct std_error* err)
         return;
     *err = geterr();
 }
+
+void dostep(void(*f)())
+{
+    f();
+    asm("pause"); // time between functions
+}
