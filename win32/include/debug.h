@@ -1,7 +1,7 @@
 #pragma once
 #include <malloc.h>
 #include <stdio.h>
-#include <signal.h>
+#include "cport/throw.h"
 #define DEFAULT_LOG "debug.log"
 
 struct log
@@ -43,9 +43,24 @@ void* __malloc(size_t sz)
     return p;
 }
 
+void __free(void* ptr)
+{
+    for(int i = 1;i <= _meminfo.no_blocks;i++)
+        if(_meminfo.blocks[i].ptr == ptr)
+            _meminfo.freed += _meminfo.blocks[i].size;
+    free(ptr);
+}
+
 void catch_errs(void(*p)(int))
 {
     signal(SIGSEGV, p);
     signal(SIGBREAK, p);
     signal(SIGABRT, p);
+}
+
+void lasterr(struct std_error* err)
+{
+    if(err == NULL)
+        return;
+    *err = geterr();
 }

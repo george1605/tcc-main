@@ -1,8 +1,14 @@
-#include "serialise.h"
+#include "debug.h"
+
+void p(int x)
+{
+    if(x == SIGSEGV)
+        putc('\n', stdout);
+}
 
 int main()
 {
-    int p;
-    deserialise(TYPE_INT, &p, "121");
-    printf("%i", p);
+    catch_errs(p); // p is the handler
+    seterr {"Nothing", SIGSEGV};
+    throw;
 }

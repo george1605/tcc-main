@@ -22,6 +22,11 @@ void _try(void_func_t f, signal_func_t catc)
     f();
 }
 
+struct std_error geterr()
+{
+    return __error;
+}
+
 #define throws(error)              \
     {                              \
         fputs(error->msg, stderr); \
