@@ -1,6 +1,7 @@
 #ifndef __TCCEX__
 #define __TCCEX__
 #include "libtcc.h"
+#include <stdio.h>
 #include <string.h>
 
 typedef struct
@@ -60,11 +61,33 @@ int tcc_haslib(TCCState* s, const char* lib)
     return 0;
 }
 
+// Read include file
+void tcc_compilefile(TCCState* s, const char* lib)
+{
+    if(s == NULL)
+        s = tcc_new();
+    FILE* fp = fopen(lib, "r");
+    long sz = ftell(fp);
+    char* mem = malloc(sz + 1);
+    fread(mem, 1, sz, fp);
+    tcc_compile_string(s, mem);
+    free(mem);
+}
+
 int tcc_isextern(TCCState* s, const char* name)
 {
     if(!tcc_get_symbol(s, name))
         return TCC_NOTDEF;
     return TCC_MAINSYM; // TO DO!
 }
+
+#ifdef _WIN32
+int tcc_linkwin32(TCCState* s)
+{
+    tcc_add_library(s, "user32");
+    tcc_add_library(s, "kernel32");
+    tcc_add_include_path(s, "minwindef.h"); 
+}
+#endif
 
 #endif
