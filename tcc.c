@@ -50,7 +50,7 @@ static const char help[] =
     "  -Ldir       add library path 'dir'\n"
     "  -llib       link with dynamic or static library 'lib'\n"
     "  -r          generate (relocatable) object file\n"
-    "  -shared     generate a shared library/dll\n"
+    "  -shared     generate a shared/dynamic library\n"
     "  -rdynamic   export all global symbols to dynamic linker\n"
     "  -soname     set name for shared library to be used at runtime\n"
     "  -Wl,-opt[=val]  set linker option (see tcc -hh)\n"

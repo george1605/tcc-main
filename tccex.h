@@ -1,7 +1,7 @@
-#pragma once
+#ifndef __TCCEX__
+#define __TCCEX__
 #include "libtcc.h"
-#include <stdio.h>
-#include <malloc.h>
+#include <string.h>
 
 typedef struct
 {
@@ -14,7 +14,7 @@ LIBTCCAPI TCCState *tcc_loaddrv(const char *path)
 {
     TCCState *s = tcc_new();
     tcc_set_output_type(s, TCC_OUTPUT_MEMORY);
-    if (tcc_add(s, path) == -1)
+    if (tcc_add_library(s, path) == -1)
     {
         printf("No file named %s", path);
         return s;
@@ -29,7 +29,7 @@ LIBTCCAPI TCCState *tcc_loaddrv(const char *path)
 
 TCCWatch* tcc_watch(TCCState* s, char* name)
 {
-    TCCWatch* wtc = (TCCWatch*)malloc(sizeof(struct TCCWatch));
+    TCCWatch* wtc = (TCCWatch*)malloc(sizeof(TCCWatch));
     wtc->var = name;
     wtc->state = s;
     wtc->ptr = tcc_get_symbol(s, name);
@@ -51,9 +51,20 @@ int tcc_wadd(TCCWatch* wtc, void* val)
 #define TCC_EXTERNSYM 0x200
 #define TCC_MAINSYM 0x10
 
+int tcc_haslib(TCCState* s, const char* lib)
+{
+    int i;
+    for(i = 1;i < s->nb_include_paths;i++)
+        if(!strcmp(s->include_paths[i], lib))
+            return 1;
+    return 0;
+}
+
 int tcc_isextern(TCCState* s, const char* name)
 {
     if(!tcc_get_symbol(s, name))
         return TCC_NOTDEF;
     return TCC_MAINSYM; // TO DO!
 }
+
+#endif
