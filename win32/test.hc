@@ -4,6 +4,6 @@ U8 buffer[32] = {0};
 
 I32 main()
 {
-    GetS(buffer);
-    puts(buffer);
+    U8 c = GetC();
+    putc(c, stdout);
 }

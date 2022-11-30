@@ -63,6 +63,11 @@ U0 MemSet (U0* ptr, U8 val, U32 size)
     memset(ptr, val, size);
 }
 
+U8 GetC ()
+{
+    return fgetc(stdin);
+}
+
 // #endif // TEMPLE OS
 
 #endif

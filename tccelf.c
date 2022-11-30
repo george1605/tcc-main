@@ -151,6 +151,28 @@ ST_FUNC void tccelf_begin_file(TCCState *s1)
 #endif
 }
 
+typedef struct
+{
+    char stripped;
+    size_t size;
+    uint8_t header[12];
+} ElfInfo;
+
+LIBTCCAPI void tcc_inspect_sect(Section* section, ElfInfo* info)
+{
+    info->size = section->data_allocated;
+    memcpy(info->header, section->data, 12);
+}
+
+LIBTCCAPI Section* tcc_find_sect(Section* start, char* name)
+{
+    Section* p = start;
+    while(start = start->link)
+        if(!strcmp(start->name, name))
+            return start;
+    return p;
+}
+
 /* At the end of compilation, convert any UNDEF syms to global, and merge
    with previously existing symbols */
 ST_FUNC void tccelf_end_file(TCCState *s1)
