@@ -94,6 +94,13 @@ void tcc_add_defs(TCCState* s)
     tcc_define_symbol(s, "__CVERSION__", "201402L");
 }
 
+void tcc_typedef(TCCState* s, char* type1, char* type2)
+{
+    char buf[70];
+    sprintf(buf, "typedef %s %s;", type1, type2);
+    tcc_compile_string(s, buf);
+}
+
 #ifdef _WIN32
 int tcc_linkwin32(TCCState* s)
 {

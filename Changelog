@@ -1,5 +1,7 @@
 Version 0.9.27:
 
+- language support for HolyC
+
 User interface:
 - -x[c|a|n] filetype option (Sergey Korshunoff)
 - -P[1], -dD, -dM preprocessor options (Sergey Korshunoff)

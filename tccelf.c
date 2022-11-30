@@ -173,6 +173,18 @@ LIBTCCAPI Section* tcc_find_sect(Section* start, char* name)
     return p;
 }
 
+LIBTCCAPI void tcc_addsym(TCCState* s, char* name)
+{
+    s->symtab = new_symtab(s, ".symtab", SHT_SYMTAB, 0,
+                                ".strtab",
+                                ".hashtab", SHF_PRIVATE);
+}
+
+ST_FUNC void tcc_add_var(Section* s, void* info, size_t sz)
+{
+    memcpy(s->data + s->data_offset, info, sz);
+}
+
 /* At the end of compilation, convert any UNDEF syms to global, and merge
    with previously existing symbols */
 ST_FUNC void tccelf_end_file(TCCState *s1)

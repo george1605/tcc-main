@@ -1988,6 +1988,7 @@ PUB_FUNC void tcc_print_stats(TCCState *s, unsigned total_time)
 LIBTCCAPI void tcc_extended(TCCState* s1)
 {
     tcc_add_sysinclude_path(s1, "holyc.h");
+    tcc_add_include_path(s1, "holyc.h");
     s1->dollars_in_identifiers = 1;
     s1->ms_extensions = 1; 
 }
@@ -2012,4 +2013,7 @@ LIBTCCAPI void tcc_execmain(TCCState* s, const char* name)
 
 #ifdef _WIN32
 #define tcc_execwin32(state) tcc_execmain((TCCState*)state, "WinMain")
+#endif
+#ifdef _EXTEND_
+#include "tccex.h"
 #endif

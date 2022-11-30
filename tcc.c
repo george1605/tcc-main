@@ -288,7 +288,7 @@ redo:
             printf("The project contains more than 10 files. Do you want to continue (Y/N)?");
             int c = getc(stdin);
             if(c == 'N' || c == 'n')
-                exit(0);
+                return 0;
         }
         if (n == 0)
             tcc_error("no input files\n");
@@ -326,6 +326,7 @@ redo:
       || s->output_type == TCC_OUTPUT_PREPROCESS) && (s->dflag & 16))
         s->dflag |= t ? 32 : 0, s->run_test = ++t, n = s->nb_files;
     
+    // holy c 
     if(!strncmp(".hc", tcc_fileextension(s->files[0]->name), 3))
     {
         s->filetype = AFF_TYPE_C;
