@@ -193,7 +193,6 @@ static void print_search_dirs(TCCState *s)
 static void set_environment(TCCState *s)
 {
     char * path;
-
     path = getenv("C_INCLUDE_PATH");
     if(path != NULL) {
         tcc_add_sysinclude_path(s, path);

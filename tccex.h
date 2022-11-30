@@ -81,6 +81,19 @@ int tcc_isextern(TCCState* s, const char* name)
     return TCC_MAINSYM; // TO DO!
 }
 
+void tcc_runsrc(TCCState* s, const char* src)
+{
+    if(!tcc_compile_string(s, src))
+        return;
+    tcc_run(s, 0, NULL);
+}
+
+void tcc_add_defs(TCCState* s)
+{
+    tcc_define_symbol(s, "__FILE__", s->files[0]->name);
+    tcc_define_symbol(s, "__CVERSION__", "201402L");
+}
+
 #ifdef _WIN32
 int tcc_linkwin32(TCCState* s)
 {
