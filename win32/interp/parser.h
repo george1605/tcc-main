@@ -15,6 +15,8 @@
 #define TOKEN_EOF 0xFF
 #define TOKEN_REG 0x20
 #define TOKEN_OP  0x40
+
+struct Stack def_stk;
 static int(*__cdecl error_func)(const char*) = puts;
 char* keywords[] = {
     "def",
@@ -29,8 +31,6 @@ char* keywords[] = {
 
 void parse_print(const char* str)
 {
-    // if(strncmp(str, "print", 5) != 0)
-    //    return;
     char* p = strtok(str, " ");
     p = strtok(NULL, " ");
     puts(p);
@@ -53,18 +53,6 @@ void* get_dl(const char* lib, const char* name)
 }
 
 // calls to extern C functions
-void parse_call(const char* str)
-{
-    char* p = strtok(str, " ");
-    puts(p);
-    if(p == NULL)
-        return;
-    #ifdef _MONITOR_
-        printf("Calling %s\n", p);
-    #endif
-    void(*func)() = load_func(p);
-    func();
-}
 
 // calls to dynamic linked libs
 void* parse_load(const char* p)
@@ -95,7 +83,7 @@ void get_tokens(const char* str, struct token* tokens)
     int c = 0;
     while(p != NULL && tokens[c].type != TOKEN_EOF)
     {
-        tokens[c++] = (struct token){p, 0};
+        tokens[c++] = (struct token){p, TOKEN_DEF};
         p = strtok(NULL, " ");
     }
 }
@@ -124,6 +112,23 @@ double mathexec(struct token* tokens)
         default:
             return 0;
     }
+}
+
+void parse_math(const char* p)
+{
+    struct token* tokens = alloc_tokens(10);
+    get_tokens(p, tokens);
+    double value = mathexec(tokens);
+    double* ptr = calloc(1, sizeof(double));
+    *ptr = value;
+    struct Value val = (struct Value) {.type = TYPE_NUMBER, .ptr = ptr};
+    push_stack(def_stk, val);
+}
+
+void init_intrp()
+{
+    def_stk = alloc_stack(10);
+    funcs = malloc(sizeof(struct Function) * func_cnt);
 }
 
 static int strfind(char* f, char p)
@@ -189,4 +194,17 @@ int parse_def(struct token* tokens)
 void set_error(int(*f)(const char*))
 {
     error_func = f;
+}
+
+void parse_call(const char* str)
+{
+    char* p = strtok(str, " ");
+    puts(p);
+    if(p == NULL)
+        return;
+    #ifdef _MONITOR_
+        printf("Calling %s\n", p);
+    #endif
+    void(*func)() = load_func(p);
+    func();
 }

@@ -1,4 +1,5 @@
 /* keywords */
+     #define _RUSTY_ // can undef if you want
      DEF(TOK_INT, "int")
      DEF(TOK_VOID, "void")
      DEF(TOK_CHAR, "char")
@@ -16,8 +17,9 @@
      DEF(TOK_CONTINUE, "continue")
      DEF(TOK_SWITCH, "switch")
      DEF(TOK_CASE, "case")
-     DEF(TOK_UNSAFE, "unsafe")
-
+     #ifdef _RUSTY_
+          DEF(TOK_UNSAFE, "unsafe")
+     #endif
      DEF(TOK_CONST1, "const")
      DEF(TOK_CONST2, "__const") /* gcc keyword */
      DEF(TOK_CONST3, "__const__") /* gcc keyword */

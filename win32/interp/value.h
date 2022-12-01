@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include <malloc.h>
 #define TYPE_NUMBER 1
 #define TYPE_STRING 2
@@ -91,7 +92,7 @@ void free_proc(struct ProcState prc)
 
 struct Function
 {
-    char name[16];
+    char* name;
     void* ptr;
 } *funcs;
 static size_t func_no = 0, func_cnt = 10;
@@ -101,7 +102,7 @@ void export_func(void(*f)(), char* name)
     if(func_no++ > func_cnt)
         funcs = realloc(funcs, sizeof(struct Function) * func_no);
     struct Function fnc;
-    memcpy(fnc.name, name, 16);
+    fnc.name = strdup(name);
     fnc.ptr = f;
     funcs[func_no] = fnc;
 }

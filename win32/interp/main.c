@@ -1,30 +1,28 @@
-#define _MONITOR_
-#include <stdlib.h>
 #include "parser.h"
+#include <stdio.h>
+#include <stdlib.h>
+char buf[101];
 
-void parse(FILE* file)
+void hello()
 {
-    char* buf = malloc(100);
-    struct token* tokens = alloc_tokens(50);
-    size_t size = sizeof buf;
-    while(getdelim(&buf, &size,'\n', file))
-    {
-        printf("%s\n", buf);
-        get_tokens(buf, tokens);
-        parse_def(tokens);
-        memset((void*)tokens, 0, sizeof(struct token) * 50);
-        memset(buf, 0, 100);
-    }
+    puts("Hello!");
 }
 
 int main(int argc, char** argv)
 {
-    if (argc < 2)
-    {
-        printf("Format: interp <filename>");
-        return -1;
-    }
+    init_intrp();
     FILE* fp = fopen(argv[1], "r");
-    parse(fp);
+    export_func(hello, "hello");
+    if(!fp)
+        return;
+    while(fgets(buf, 100, fp))
+    {
+        if(!strncmp(buf, "print", 5))
+            parse_print(buf);
+        if(!strncmp(buf, "call", 4))
+            parse_call(buf);
+        memset(buf, 0, 100);
+    }
+    fclose(fp); // be safe
     return 0;
 }
