@@ -5,7 +5,7 @@ char buf[101];
 
 void hello()
 {
-    puts("Hello!");
+    puts("HI!");
 }
 
 int main(int argc, char** argv)

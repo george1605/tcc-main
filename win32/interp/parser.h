@@ -51,9 +51,6 @@ void* get_dl(const char* lib, const char* name)
     return (void*)GetProcAddress(mod, name);
 #endif
 }
-
-// calls to extern C functions
-
 // calls to dynamic linked libs
 void* parse_load(const char* p)
 {
@@ -61,7 +58,6 @@ void* parse_load(const char* p)
     //    return NULL;
     char* r = strtok(p, " ");
     char* rp = strtok(NULL, "@");
-    printf("Strings: %s %s", r, rp);
     return get_dl(r, rp);
 }
 
@@ -147,6 +143,10 @@ struct Value parse_type(const char* str)
         return (struct Value){ (void*)atoi(str), TYPE_NUMBER, 4 };
     if(str[0] == '"')
         return (struct Value){ (void*)(str + 1), TYPE_STRING, strfind((char*)str + 1, '"')};
+    if(str[0] == '\x27')
+        return (struct Value){ (void*)str[1], TYPE_CHAR, 1 };
+    if(!strcmp(str, "true") || strcmp(str, "false"))
+        return (struct Value){ (void*)(str[0] == 't'), TYPE_BOOL, 1 };
     return new_val(0);
 }
 

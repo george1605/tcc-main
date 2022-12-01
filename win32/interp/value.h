@@ -4,6 +4,7 @@
 #define TYPE_NUMBER 1
 #define TYPE_STRING 2
 #define TYPE_BOOL 4
+#define TYPE_CHAR 16
 #define TYPE_ANY 8
 
 struct Value
@@ -99,7 +100,7 @@ static size_t func_no = 0, func_cnt = 10;
 
 void export_func(void(*f)(), char* name)
 {
-    if(func_no++ > func_cnt)
+    if(funcs == NULL || func_no++ > func_cnt)
         funcs = realloc(funcs, sizeof(struct Function) * func_no);
     struct Function fnc;
     fnc.name = strdup(name);

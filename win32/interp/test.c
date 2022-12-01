@@ -3,8 +3,8 @@
 
 int main()
 {
-    def_stk = alloc_stack(10);
-    parse_math("15 * 7");
-    printf("Result: %i", def_stk.values[0].ptr);
+    struct Value val = parse_type("'A'");
+    struct Value val2 = parse_type("false");
+    printf("Char: %c, Bool: %i", (char)val.ptr, (char)val2.ptr);
     return 0;
 }
