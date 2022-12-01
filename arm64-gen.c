@@ -1,6 +1,6 @@
 /*
  *  A64 code generator for TCC
- *
+ * 
  *  Copyright (c) 2014-2015 Edmund Grimley Evans
  *
  * Copying and distribution of this file, with or without modification,
