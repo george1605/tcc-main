@@ -1,6 +1,6 @@
-#include "debug.h"
 
 int main()
 {
-    
+    runthidden("test.o");
+    return 0;
 }

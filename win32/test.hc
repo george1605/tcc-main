@@ -4,6 +4,7 @@ U8 buffer[32] = {0};
 
 I32 main()
 {
-    U8 c = GetC();
-    putc(c, stdout);
+    FILE* p = fopen("try.x", "w");
+    fputc('A', p);
+    return 0;
 }
