@@ -1,6 +1,9 @@
+#include <cport/bitset.h>
+#include <stdio.h>
 
 int main()
 {
-    runthidden("test.o");
-    return 0;
+    int x = 100;
+    sign_int(&x, 1);
+    printf("%i", x);
 }

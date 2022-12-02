@@ -3,6 +3,7 @@
         "holyc.h": "c",
         "iobuf.hpp": "c",
         "xlocale": "c",
-        "signal.h": "c"
+        "signal.h": "c",
+        "bitset.h": "c"
     }
 }
