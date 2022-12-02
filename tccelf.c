@@ -158,12 +158,6 @@ typedef struct
     uint8_t header[12];
 } ElfInfo;
 
-LIBTCCAPI void tcc_inspect_sect(Section* section, ElfInfo* info)
-{
-    info->size = section->data_allocated;
-    memcpy(info->header, section->data, 12);
-}
-
 LIBTCCAPI Section* tcc_find_sect(Section* start, char* name)
 {
     Section* p = start;
@@ -171,6 +165,13 @@ LIBTCCAPI Section* tcc_find_sect(Section* start, char* name)
         if(!strcmp(start->name, name))
             return start;
     return p;
+}
+
+LIBTCCAPI void tcc_inspect_sect(Section* section, ElfInfo* info)
+{
+    info->size = section->data_allocated;
+    info->stripped = (tcc_find_sect(section, "symtab") == NULL);
+    memcpy(info->header, section->data, 12);
 }
 
 LIBTCCAPI void tcc_addsym(TCCState* s, char* name)

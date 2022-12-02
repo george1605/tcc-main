@@ -10,6 +10,8 @@ extern "C" {
 #endif
 
 struct TCCState;
+struct Section;
+typedef struct Section Section;
 
 typedef struct TCCState TCCState;
 

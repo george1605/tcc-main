@@ -27,6 +27,12 @@ void* init_filehdr(void* addr)
         return (void*)hdr;
 }
 
+void strip_coff(void* addr)
+{
+        struct filehdr* hdr = (struct filehdr*)addr;
+        hdr->f_nsyms = 0;
+}
+
 /*------------------------------------------------------------------------*/
 /*  File header flags                                                     */
 /*------------------------------------------------------------------------*/
@@ -156,6 +162,11 @@ struct scnhdr {
 
 #define SCNHDR  struct scnhdr
 #define SCNHSZ  sizeof(SCNHDR)
+
+void schndr_setflg(struct scnhdr* pg, int add_flags)
+{
+        pg->s_flags = F_EXEC | add_flags;
+}
 
 /*------------------------------------------------------------------------*/
 /* Define constants for names of "special" sections                       */
