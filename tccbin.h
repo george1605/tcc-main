@@ -31,7 +31,23 @@ void savvy_parse(const char* cmd, void* params, uint8_t* bytes)
     }
 }
 
+#define EAX_REG 0
+#define ECX_REG 1
+#define EBX_REG 2
+#define EDX_REG 3
+#define ESP_REG 4
+#define EBP_REG 5
+
 void x86_parse(const char* cmd, void* params, uint8_t* bytes)
 {
     // TO DO!
+    int c = 0;
+    if(bytes == NULL)
+        return;
+    if(!strcmp(cmd, "ret"))
+        bytes[c] = 0xc3;
+    if(!strcmp(cmd, "mov"))
+    {
+        bytes[c] = 0xb8 + *(int*)params;
+        bytes[c++] = ((int*)params)[1];
 }

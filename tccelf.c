@@ -170,7 +170,7 @@ LIBTCCAPI Section* tcc_find_sect(Section* start, char* name)
 LIBTCCAPI void tcc_inspect_sect(Section* section, ElfInfo* info)
 {
     info->size = section->data_allocated;
-    info->stripped = (tcc_find_sect(section, "symtab") == NULL);
+    info->stripped = (tcc_find_sect(section, ".symtab") == section);
     memcpy(info->header, section->data, 12);
 }
 
