@@ -50,4 +50,10 @@ void x86_parse(const char* cmd, void* params, uint8_t* bytes)
     {
         bytes[c] = 0xb8 + *(int*)params;
         bytes[c++] = ((int*)params)[1];
+    }
+    if(!strcmp(cmd, "je"))
+    {
+        bytes[c++] = 0x74;
+        memcpy(bytes + c, params, sizeof(void*));
+    }
 }

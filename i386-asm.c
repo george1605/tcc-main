@@ -54,6 +54,17 @@
 #endif
 
 #define OPC_GROUP_SHIFT 13
+#define MAINFUNC_ASM ".globl _main"
+
+void i386_addsect(FILE* f, const char* type)
+{
+    fprintf(f, "%s:\n", type);
+}
+
+void i386_addcall(FILE* f, const char* func)
+{
+    fprintf(f, "callq _%s\n", func);
+}
 
 /* in order to compress the operand type, we use specific operands and
    we or only with EA  */
