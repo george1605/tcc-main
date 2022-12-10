@@ -1,7 +1,7 @@
-#include <posixvm.h>
+#include <micro.h>
 #include <stdio.h>
 
 int main()
 {
-    // execve()
+    printf("%i", HIGH);
 }
