@@ -1,7 +1,9 @@
-#include <micro.h>
+#include <ints.h>
 #include <stdio.h>
 
 int main()
 {
-    printf("%i", HIGH);
+    u16_t q = {.hi = 0x77, .low = 0xa0};
+    uint_t p = get_short(&q);
+    printf("%i", p);
 }
