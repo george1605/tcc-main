@@ -1,4 +1,4 @@
-#define TCC_VERSION "0.9.27"
+#define TCC_VERSION "0.9.29" // new version dropped
 #ifdef TCC_TARGET_X86_64
 #define TCC_LIBTCC1 "libtcc1-64.a"
 #else
