@@ -25,6 +25,8 @@ static struct meminfo _meminfo;
 
 void open_log(struct log* lg, const char* filename)
 {
+    if(!filename)
+        filename = DEFAULT_LOG;
     lg->__stdout = freopen(filename, "w", stdout);
     lg->__stderr = freopen(filename, "w", stderr);
 }

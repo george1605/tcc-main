@@ -243,6 +243,13 @@ static unsigned getclock_ms(void)
 #endif
 }
 
+void error_func(void* opaque, const char* msg)
+{
+    FILE* fp = fopen("compile.log", "w+");
+    fprintf(fp, "At %s\n", msg);
+    fclose(fp); 
+}
+
 int main(int argc0, char **argv0)
 {
     TCCState *s;
@@ -256,7 +263,8 @@ redo:
     argc = argc0, argv = argv0;
     s = tcc_new();
     opt = tcc_parse_args(s, &argc, &argv, 1);
-
+    if(!strcmp(argv[2], "-l")) // to log
+        s->error_func = error_func;
     if ((n | t) == 0) {
         if (opt == OPT_HELP)
             return printf(help), 1;

@@ -1,4 +1,5 @@
 #pragma once
+#define SHORT(x) *(short*)&x
 typedef unsigned char u8_t;
 typedef unsigned int uint_t;
 
@@ -15,4 +16,9 @@ typedef struct {
 uint_t get_short(u16_t *p)
 {
     return (p->hi << 8) | (p->low);
+}
+
+uint_t get_word(u32_t *p)
+{
+    return (get_short(&p->hi) << 16) | get_short(&p->low);
 }
