@@ -14,7 +14,7 @@
 #define WIN_MAIN "WinMain"
 #define WWIN_MAIN "wWinMain"
 #endif
-typedef (*main_func)(int argc, char** argv);
+typedef int(*main_func)(int argc, char** argv);
 
 uint8_t* relocate(const char* file, size_t size)
 {
@@ -42,4 +42,11 @@ int execbytes(uint8_t* p)
 char* find_symbol(uint8_t* buf, char* symbol)
 {
     return strstr((const char*)buf, symbol);
+}
+
+// Find the "This program cannot be run in dos mode"
+int find_dos(uint8_t* buf)
+{
+    char c[] = "This program cannot be run in DOS mode";
+    return (find_symbol(buf, c) != NULL);
 }

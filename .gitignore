@@ -9,7 +9,6 @@
 *.pdb
 *.lib
 *.exp
-*.log
 *.bz2
 *.zip
 .gdb_history
