@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
+#ifdef __unix__
+#include <unistd.h>
+#endif
 #define BIN_ELF 0x1
 #define BIN_EXE 0x2
 #define BIN_OBJ 0x4
@@ -49,4 +52,14 @@ int find_dos(uint8_t* buf)
 {
     char c[] = "This program cannot be run in DOS mode";
     return (find_symbol(buf, c) != NULL);
+}
+
+void* create_func(size_t sz)
+{
+    void* p = malloc(sz);
+    #ifdef __unix__
+        mprotect(p, sz, PROT_EXEC | PROT_WRITE);
+    #endif
+    *(uint8_t*)p = 0xC3; // when called it automatically exits
+    return p;
 }
