@@ -4,6 +4,7 @@
 #include <string.h>
 #ifdef __unix__
 #include <unistd.h>
+#include <sys/mman.h>
 #endif
 #define BIN_ELF 0x1
 #define BIN_EXE 0x2
