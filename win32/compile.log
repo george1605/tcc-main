@@ -1,1 +1,3 @@
-At test.c:1: error: include file '__ints.h' not found
+At test.c:6: warning: implicit declaration of function 'BlueBlah'
+At tcc: error: undefined symbol 'SetPixel'
+At tcc: error: undefined symbol 'BlueBlah'

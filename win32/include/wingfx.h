@@ -20,6 +20,7 @@ void initclass()
 
     wc.lpfnWndProc = DefWindowProc;
     wc.hInstance = 0;
+    wc.hCursor = LoadCursorA(NULL, MAKEINTRESOURCEA(IDC_ARROW));
     wc.hbrBackground = CreateSolidBrush(RGB(180, 180, 180));
     wc.style = CS_DBLCLKS | CS_VREDRAW | CS_HREDRAW;
     wc.lpszClassName = CLASS_NAME;

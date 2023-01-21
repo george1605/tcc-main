@@ -1,8 +1,8 @@
-#include <__ints.h>
-#include <stdio.h>
+#include <windows.h>
 
 int main()
 {
-    print(;
-    malog();
+    SetPixel(0, 5, 5, RGB(255,255,255));
+    BlueBlah();
+    return 0;
 }

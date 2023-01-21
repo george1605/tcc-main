@@ -243,11 +243,12 @@ static unsigned getclock_ms(void)
 #endif
 }
 
+FILE* fp;
 void error_func(void* opaque, const char* msg)
 {
-    FILE* fp = fopen("compile.log", "w+");
+    if(!fp) 
+        fp = fopen("compile.log", "a");
     fprintf(fp, "At %s\n", msg);
-    fclose(fp); 
 }
 
 int main(int argc0, char **argv0)
@@ -391,5 +392,7 @@ redo:
         goto redo; /* run more tests with -dt -run */
     if (ppfp && ppfp != stdout)
         fclose(ppfp);
+    if(fp)
+        fclose(fp);
     return ret;
 }
