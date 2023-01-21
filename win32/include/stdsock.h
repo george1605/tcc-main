@@ -6,6 +6,12 @@
 #endif
 
 #include <malloc.h>
+#ifdef _WIN32
+#include <winsock.h>
+#elif defined(__unix__)
+#include <sys/socket.h>
+#include <net/db.h>
+#endif
 #define SOCK_INET 0x10
 #define SOCK_INTRN 0x20
 #define S_REUSE 0x40
