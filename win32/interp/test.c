@@ -3,8 +3,8 @@
 
 int main()
 {
-    struct Value val = parse_type("'A'");
-    struct Value val2 = parse_type("false");
-    printf("Char: %c, Bool: %i", (char)val.ptr, (char)val2.ptr);
+    parse_stack("push 123", def_stk);
+    struct Value i = pop_stack(def_stk);
+    printf("%i", i.ptr);
     return 0;
 }

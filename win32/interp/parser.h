@@ -33,6 +33,16 @@ void parse_print(const char* str)
 {
     char* p = strtok(str, " ");
     p = strtok(NULL, " ");
+    if(!p)
+    {
+        struct Value v = pop_stack(def_stk);
+        if(v.size == 1)
+        {
+            putc((char)v.ptr, stdout);
+            return 0;
+        }
+        p = pop_stack(def_stk).ptr; // pops from the stack
+    }
     puts(p);
 }
 
@@ -110,6 +120,21 @@ double mathexec(struct token* tokens)
     }
 }
 
+typedef FILE* FStream;
+char parse_getkey(const char* _fname)
+{
+    if(!_fname)
+        return fgetc(stdin);
+    FStream f = fopen(_fname, "r");
+    char c = fgetc(f);
+    fclose(f);
+    struct Value p;
+    p.ptr = (void*)c;
+    p.size = 1;
+    push_stack(def_stk, p);
+    return c;
+}
+
 void parse_math(const char* p)
 {
     struct token* tokens = alloc_tokens(10);
@@ -123,7 +148,7 @@ void parse_math(const char* p)
 
 void init_intrp()
 {
-    def_stk = alloc_stack(10);
+    def_stk = alloc_stack(50);
     funcs = malloc(sizeof(struct Function) * func_cnt);
 }
 
@@ -145,7 +170,7 @@ struct Value parse_type(const char* str)
         return (struct Value){ (void*)(str + 1), TYPE_STRING, strfind((char*)str + 1, '"')};
     if(str[0] == '\x27')
         return (struct Value){ (void*)str[1], TYPE_CHAR, 1 };
-    if(!strcmp(str, "true") || strcmp(str, "false"))
+    if(!strcmp(str, "true") || !strcmp(str, "false"))
         return (struct Value){ (void*)(str[0] == 't'), TYPE_BOOL, 1 };
     return new_val(0);
 }
@@ -158,7 +183,6 @@ void parse_stack(const char* p, struct Stack stk)
         char* c = strtok(p, " ");
         push_stack(stk, parse_type(c));
     } else {
-        char* c = strtok(p, " ");
         pop_stack(stk);
     }
 }

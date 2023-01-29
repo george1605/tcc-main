@@ -532,6 +532,9 @@ ST_FUNC const char *get_tok_str(int v, CValue *cv)
     case TOK_LINENUM:
 	cstr_cat(&cstr_buf, "<linenumber>", 0);
 	break;
+    case TOK_SPACESHIP:
+    cstr_cat(&cstr_buf, "<=>", 0);
+    break;
 
     /* above tokens have value, the ones below don't */
     case TOK_LT:

@@ -976,6 +976,7 @@ struct filespec {
 #define TOK_A_OR  0xfc
 #define TOK_A_SHL 0x81
 #define TOK_A_SAR 0x82
+#define TOK_SPACESHIP 0x84
 
 #define TOK_EOF       (-1)  /* end of file */
 #define TOK_LINEFEED  10    /* line feed */
