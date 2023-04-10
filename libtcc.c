@@ -1993,6 +1993,11 @@ LIBTCCAPI void tcc_extended(TCCState* s1)
     s1->ms_extensions = 1; 
 }
 
+LIBTCCAPI int tcc_has_symbol(TCCState* s1, const char* s)
+{
+    return (tcc_get_symbol(s1, s) != NULL);
+}
+
 ST_DATA void tcc_errorFunc(void* opaque, const char* msg)
 {
     puts("ERROR: ");
