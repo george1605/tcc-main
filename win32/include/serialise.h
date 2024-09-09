@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdint.h>
+
 #define TYPE_INT 0x1
 #define TYPE_FLOAT 0x2
 #define TYPE_STRING 0x3
@@ -10,7 +12,7 @@
 void read_raw(const char* file, const char* memory)
 {
     FILE* fp = fopen(file, "r");
-    fread(memory, 1, strlen(memory), fp);
+    fread((void*)memory, 1, strlen(memory), fp);
 }
 
 void write_raw(const char* file, const char* memory)
@@ -37,14 +39,27 @@ void deserialise(int type, void* memory, char* buffer)
 // b is the pointer to last byte
 void todec(int number, char* b)
 {
-    if(b == NULL)
+    if (b == NULL || *b != '\0')  
         return;
-    while(number)
+    
+    if (number == 0) {
+        *b-- = '0';
+        return;
+    }
+
+    while (number)
     {
-        *b-- = number % 10;
-        number = number / 10;
+        *b-- = (number % 10) + '0';  
+        number /= 10;
     }
 }
+
+struct _float 
+{
+    uint8_t  sign      : 1;
+    uint8_t  exponent  : 8;
+    uint32_t mantissa  : 23;
+};
 
 void serialise(int type, void* memory, char* buffer)
 {
@@ -52,6 +67,12 @@ void serialise(int type, void* memory, char* buffer)
  {
     case TYPE_INT:
         todec(*(int*)memory, buffer);
+    break;
+    case TYPE_STRING:
+        strcpy(buffer, (char*)memory);
+    break;
+    case TYPE_FLOAT:
+
     break;
  }   
 }

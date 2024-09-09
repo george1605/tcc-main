@@ -10,7 +10,7 @@
 void read_raw(const char* file, const char* memory)
 {
     FILE* fp = fopen(file, "r");
-    fread(memory, 1, strlen(memory), fp);
+    fread((void*)memory, 1, strlen(memory), fp);
 }
 
 void write_raw(const char* file, const char* memory)

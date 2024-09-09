@@ -7,16 +7,24 @@
 #include <malloc.h>
 #include <string.h>
 #include <float.h>
+#include <math.h>
+
 #define Asm(x) asm(#x)
 #define U0 void
+
+#define _intern static
+#define _extern extern
 
 typedef uint8_t U8;
 typedef uint16_t U16;
 typedef uint32_t U32;
+typedef uint64_t U64;
 typedef char I8;
 typedef short I16;
 typedef int32_t I32;
-typedef float F64;
+typedef int64_t I64;
+typedef float F32;
+typedef double F64;
 
 // #ifdef __TEMPLE_OS__
 #define MEM_PAG_BITS 9
@@ -67,6 +75,58 @@ U8 GetC ()
 {
     return fgetc(stdin);
 }
+
+F64 Floor(F64 d)
+{
+    return (U32)d;
+}
+
+F64 Ceil(F64 d)
+{
+    return Floor(d) + 1;
+}
+
+F64 Sin(F64 d)
+{
+    return sin(d);
+}
+
+U0 SwapU8(U8* u1, U8* u2)
+{
+    if (u1 == NULL || u2 == NULL) {
+        return;  // or handle error as needed
+    }
+
+    U8 aux = *u2;
+    *u2 = *u1;
+    *u1 = aux;
+}
+
+U0 SwapU16(U16* u1, U16* u2)
+{
+    if (u1 == NULL || u2 == NULL) {
+        return;  // or handle error as needed
+    }
+
+    U16 aux = *u2;
+    *u2 = *u1;
+    *u1 = aux;
+}
+
+U0 SwapU32(U32* u1, U32* u2)
+{
+    if (u1 == NULL || u2 == NULL) {
+        return;  // or handle error as needed
+    }
+
+    U32 aux = *u2;
+    *u2 = *u1;
+    *u1 = aux;
+}
+
+#ifdef _HOLY_C_GRAPHICS_
+U0 PopUpOk(const U8* message);
+#endif
 
 // #endif // TEMPLE OS
 

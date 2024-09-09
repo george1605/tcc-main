@@ -1,24 +1,36 @@
 #pragma once
+#include <stddef.h>
 #define SHORT(x) *(short*)&x
 typedef unsigned char u8_t;
-typedef unsigned int uint_t;
 
 typedef struct {
-    u8_t hi;
-    u8_t low;
-} u16_t;
+    u8_t x[2];
+} uint16_u;
 
 typedef struct {
-    u16_t hi;
-    u16_t low;
-} u32_t;
+    u8_t x[4];
+} uint32_u;
 
-uint_t get_short(u16_t *p)
+void swap_endian16(uint16_u* str)
 {
-    return (p->hi << 8) | (p->low);
+    if(str == NULL) return;
+
+    u8_t aux = str->x[1];
+    str->x[1] = str->x[0];
+    str->x[0] = aux;
 }
 
-uint_t get_word(u32_t *p)
+void swap_endian32(uint32_u* str)
 {
-    return (get_short(&p->hi) << 16) | get_short(&p->low);
+    if(str == NULL) return;
+
+    u8_t aux;
+
+    aux = str->x[3];
+    str->x[3] = str->x[0];
+    str->x[0] = aux;
+
+    aux = str->x[2];
+    str->x[2] = str->x[1];
+    str->x[1] = aux;
 }
